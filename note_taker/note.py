@@ -10,6 +10,12 @@ def read():
     with open("note.txt", "r") as f:
         lines = f.readlines()
         for i in range(len(lines)):
+            print(lines[i])
+
+def read1():
+    with open("note.txt", "r") as f:
+        lines = f.readlines()
+        for i in range(len(lines)):
             print(f"{i}. {lines[i]}")
 
 #clears text file
@@ -66,7 +72,7 @@ def help():
 #so keys don't get appended into file when typing and to call functions 
 keyword_dict = {
                 "/esc": ["escape key exits program", escape], 
-                "/read": ["read key shows all saved text", read,], 
+                "/read": ["read key shows all saved text read1 even numbers the lines", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
                 "/help": ["shows information regarding keys", help], 
@@ -81,9 +87,15 @@ while True:
     if key in keyword_dict:
         keyword_dict[key][1]()
 
-    elif key in keyword_dict and "1":
-        print("not added")
-        keyword_dict[key][2]()
+    if "1" in key and (key.replace("1", "")) in keyword_dict: #working on
+        key = (key.replace("1", ""))
+
+        try:
+            if key in keyword_dict:
+                keyword_dict[key][2]()
+        except:
+            print("not valid sub keyword")
+            continue
 
     if key not in keyword_dict:
         write(key)
