@@ -15,21 +15,18 @@ def clear():
     with open("note.txt", "w") as f:
         f.write("")
 
-#so keywords don't get appended into file when used
-keyword_list = ["escape", "read", "clear", "",]
+def escape():
+    exit()
+
+#so keys don't get appended into file when typing and to call functions 
+keyword_dict = {"escape": escape, "read": read, "clear": clear,}
 
 #where everything comes together
 while True:
     key = input()
 
-    if key == "escape":
-        exit()
+    if key in keyword_dict:
+        keyword_dict[key]()
 
-    if key == "read":
-        read()
-    
-    if key == "clear":
-        clear()
-
-    if key not in keyword_list:
+    if key not in keyword_dict:
         write(key)
