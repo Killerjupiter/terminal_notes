@@ -8,8 +8,8 @@ def write(key):
 def read():
     with open("note.txt", "r") as f:
         lines = f.readlines()
-        for i in lines:
-            print(i)
+        for i in range(len(lines)):
+            print(f"{i}. {lines[i]}")
 
 #clears text file
 def clear():
@@ -24,8 +24,20 @@ def escape():
 def pass_on():
     pass
 
+#to change a line in the saved text file not working
+def over_write():
+    with open("note.txt", "r") as f:
+        lines = f.readlines()
+        key = int(input("type line number: "))
+    if key in range(len(lines)):
+        lines[key] = input("type new text: ") + "\n"
+        with open("note.txt", "w") as f:
+            for i in range(len(lines)):
+                f.write(lines[i])
+
+
 #so keys don't get appended into file when typing and to call functions 
-keyword_dict = {"escape": escape, "read": read, "clear": clear, "": pass_on,}
+keyword_dict = {"/esc": escape, "/read": read, "/clr": clear, "": pass_on, "/overwrite": over_write,}
 
 #where everything comes together
 while True:
