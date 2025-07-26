@@ -79,6 +79,9 @@ keyword_dict = {
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
+#possible sub keys still working out everything
+sub_keys = ["1", "2", "3"]
+
 #where everything comes together
 print("/help is the keyword for help")
 while True:
@@ -87,15 +90,22 @@ while True:
     if key in keyword_dict:
         keyword_dict[key][1]()
 
-    if "1" in key and (key.replace("1", "")) in keyword_dict: #working on
-        key = (key.replace("1", ""))
-
-        try:
-            if key in keyword_dict:
-                keyword_dict[key][2]()
-        except:
-            print("not valid sub keyword")
-            continue
+ #working on
+    for i in sub_keys:
+        if i in key:
+            for i in range(len(sub_keys) + 1):
+                print(i)
+                num = str(i - 1)
+                if num in key and (key.replace(num, "")) in keyword_dict:
+                    key = (key.replace(num, ""))
+                    try:
+                        if key in keyword_dict:
+                            keyword_dict[key][i]()
+                    except:
+                        print("not valid sub keyword")
+                        break
+        elif i not in key:
+            break
 
     if key not in keyword_dict:
         write(key)
