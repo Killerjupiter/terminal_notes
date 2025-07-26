@@ -55,6 +55,7 @@ def help():
             break
         elif key == "keys":
             print(keyword_list)
+            print("some keywords have modifiers like 1")
         elif key in keyword_dict:
             print(keyword_dict[key][0])
         elif key == "more":
@@ -65,14 +66,29 @@ def help():
                 print("")
         else:
             break
-        
-            
+
+#detects if a keyword has a modifier and acts upon it       
+def key_modifier(key):
+        for i in key_modifier_list:
+            if i in key:
+                for i in range(len(key_modifier_list) + 1):
+                    num = str(i - 1)
+                    if num in key and (key.replace(num, "")) in keyword_dict:
+                        key = (key.replace(num, ""))
+                        try:
+                            if key in keyword_dict:
+                                keyword_dict[key][i]()
+                        except:
+                            print("not valid keyword modifier")
+                            break
+            elif i not in key:
+                break            
     
 
 #so keys don't get appended into file when typing and to call functions 
 keyword_dict = {
                 "/esc": ["escape key exits program", escape], 
-                "/read": ["read key shows all saved text read1 even numbers the lines", read, read1], 
+                "/read": ["read key shows all saved text, working modifier read1", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
                 "/help": ["shows information regarding keys", help], 
@@ -80,7 +96,7 @@ keyword_dict = {
                 }
 
 #possible sub keys still working out everything
-sub_keys = ["1", "2", "3"]
+key_modifier_list = ["1", "2", "3"]
 
 #where everything comes together
 print("/help is the keyword for help")
@@ -90,22 +106,7 @@ while True:
     if key in keyword_dict:
         keyword_dict[key][1]()
 
- #working on
-    for i in sub_keys:
-        if i in key:
-            for i in range(len(sub_keys) + 1):
-                print(i)
-                num = str(i - 1)
-                if num in key and (key.replace(num, "")) in keyword_dict:
-                    key = (key.replace(num, ""))
-                    try:
-                        if key in keyword_dict:
-                            keyword_dict[key][i]()
-                    except:
-                        print("not valid sub keyword")
-                        break
-        elif i not in key:
-            break
+    key_modifier(key)
 
     if key not in keyword_dict:
         write(key)
