@@ -107,6 +107,9 @@ def over_write1():
         if key not in range(len(lines)):
             break
 
+def file():
+    print("not implemented")
+    pass
 
 #help menu and all of it's options
 def help():
@@ -163,11 +166,12 @@ keyword_dict = {
                 "/esc": ["escape key exits program /esc1 is for debug only causes save error", escape, escape],
                 "/read": ["read key shows all saved text, working modifier read1", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
-                "/overwrite": ["Replaces saved text at line indicated", over_write, over_write1], 
+                "/overwrite": ["replaces saved text at line indicated overwrite1 overwrites last line", over_write, over_write1], 
                 "/help": ["shows information regarding keys", help,],
-                "/save": ["currently nothing", save,],
+                "/save": ["toggles save on and off", save,],
                 "/find": ["prints all lines a word appears in", find, find1, find2,],
                 "/write": ["toggles write for single line", write,],
+                "/file": ["currently unused", file,],
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
