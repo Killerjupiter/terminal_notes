@@ -3,14 +3,25 @@
 class keywords: #not really sure how to use it but assuming I can use it for something
     pass
 
-#hopefully save on/off
-def save():
-    print("not implemented")
-     
 #moves characters written in terminal into folder
-def write(key): 
-    with open("note.txt", "a") as f:
-        f.write(key + "\n")
+def write(key):
+        with open("note.txt", "a") as f:
+            f.write(key + "\n")
+
+#hopefully save on/off
+def save(key):
+    global save_state #I heard global was bad but literally couldn't figure this out without
+    if key == None:
+        key = input("On or Off: ").capitalize()
+        if key == "On":
+            save_state = True
+        if key == "Off":
+            save_state = False
+    if save_state != None:
+        if save_state == True:
+            write(key)
+        if save_state == False:
+            pass
 
 #prints whatever is written in file into terminal
 def read():
@@ -26,7 +37,7 @@ def read1():
         for i in range(len(lines)):
             print(f"{i}. {lines[i]}")
 
-#find working on
+#find finds the line a words written in
 def find():
     key = input("find word: ")
     with open("note.txt", "r") as f:
@@ -35,7 +46,7 @@ def find():
                 if key in lines[i]:
                     print(lines[i])
 
-#prints all lines with line numbers
+#prints all lines with line numbers that the words on
 def find1():
     key = input("find word: ")
     with open("note.txt", "r") as f:
@@ -43,6 +54,16 @@ def find1():
         for i in range(len(lines)):
                 if key in lines[i]:
                     print(f"{i}. {lines[i]}")
+
+#prints only the line numbers the words on
+def find2():
+    print("working")
+    key = input("find word: ")
+    with open("note.txt", "r") as f:
+        lines = f.readlines()
+        for i in range(len(lines)):
+                if key in lines[i]:
+                    print(f"{i}. ")
 
 
 #clears text file
@@ -85,6 +106,7 @@ def help():
             print("some keywords have modifiers like 1")
         elif key in keyword_dict:
             print(keyword_dict[key][0])
+            print(f"number of modifiers: {len(keyword_dict[key]) - 2}")
         elif key == "more":
             key = " "
             for i in keyword_list:
@@ -94,47 +116,48 @@ def help():
         else:
             break
 
-#detects if a keyword has a modifier and acts upon it       
+#detects if a keyword has a modifier or not and acts upon it also controls save for now   
 def key_modifier(key):
+        if key in keyword_dict:
+            if keyword_dict[key][1]() == True:
+                keyword_dict[key][1]()
+            elif keyword_dict[key][1]() == False:
+                keyword_dict[key][1](None)   
+            key = ""
         for i in key_modifier_list:
             if i in key:
-                for i in range(len(key_modifier_list) + 1):
-                    num = str(i - 1)
+                for i in range(len(key_modifier_list)):
+                    num = str(i)
                     if num in key and (key.replace(num, "")) in keyword_dict:
                         key = (key.replace(num, ""))
                         try:
                             if key in keyword_dict:
-                                keyword_dict[key][i]()
+                                keyword_dict[key][i + 1]()
+                                key = ""
                         except:
                             print("not valid keyword modifier")
-                            break
-            elif i not in key:
-                break    
+        if key != (""):
+            save(key)
 
-#so keywords don't get appended into file when typing and to call functions 
+
+#so keywords don't get appended into file when typing and to call functions  
 keyword_dict = {
-                "/esc": ["escape key exits program", escape], 
+                "/esc": ["escape key exits program /esc1 is for debug only causes save error", escape, escape],
                 "/read": ["read key shows all saved text, working modifier read1", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
                 "/help": ["shows information regarding keys", help,],
-                "/save": ["starts saving writing not yet implemented", save,],
-                "/find": ["prints all lines a word appears in", find, find1,],
+                "/save": ["toggles save on or off to save writing", save,],
+                "/find": ["prints all lines a word appears in", find, find1, find2,],
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
 #possible sub keys still working out everything
 key_modifier_list = ["1", "2", "3"]
+save_state = True
 
 #where everything comes together
 print("/help is the keyword for help")
 while True:
     key = input()
-
-    if key in keyword_dict:
-        keyword_dict[key][1]()
-
     key_modifier(key)
-
-    if key not in keyword_dict:
-        write(key)
