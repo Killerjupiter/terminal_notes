@@ -1,5 +1,12 @@
 #By Bealex my discord is bealex if you need me
 
+class keywords: #not really sure how to use it but assuming I can use it to just put the keyword_dict into the definitions
+    pass
+
+#hopefully save on/off
+def save():
+    print("not implemented")
+     
 #moves characters written in terminal into folder
 def write(key): 
     with open("note.txt", "a") as f:
@@ -82,8 +89,7 @@ def key_modifier(key):
                             print("not valid keyword modifier")
                             break
             elif i not in key:
-                break            
-    
+                break    
 
 #so keys don't get appended into file when typing and to call functions 
 keyword_dict = {
@@ -91,7 +97,8 @@ keyword_dict = {
                 "/read": ["read key shows all saved text, working modifier read1", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
-                "/help": ["shows information regarding keys", help], 
+                "/help": ["shows information regarding keys", help,],
+                "/save": ["starts saving writing not yet implemented", save,],
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
