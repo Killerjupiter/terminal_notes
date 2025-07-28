@@ -5,6 +5,8 @@ class keywords: #not really sure how to use it but assuming I can use it for som
 
 #moves characters written in terminal into folder
 def write(key):
+        if key == None:
+            key = input("file addition: ")
         with open("note.txt", "a") as f:
             f.write(key + "\n")
 
@@ -119,9 +121,9 @@ def help():
 def key_modifier(key):
         if key in keyword_dict:
             try:
+                keyword_dict[key][1](None)
+            except:
                 keyword_dict[key][1]()
-            except: #causes error when exiting the program haven't figured out a fix yet that doesn't cause another problem
-                keyword_dict[key][1](None)   
             key = ""
         for i in key_modifier_list:
             if i in key:
@@ -146,8 +148,9 @@ keyword_dict = {
                 "/clr": ["clear key clears saved text", clear], 
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
                 "/help": ["shows information regarding keys", help,],
-                "/save": ["toggles save on or off to save writing", save,],
+                "/save": ["currently nothing", save,],
                 "/find": ["prints all lines a word appears in", find, find1, find2,],
+                "/write": ["toggles write for single line", write,],
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
