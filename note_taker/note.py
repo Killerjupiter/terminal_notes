@@ -57,7 +57,6 @@ def find1():
 
 #prints only the line numbers the words on
 def find2():
-    print("working")
     key = input("find word: ")
     with open("note.txt", "r") as f:
         lines = f.readlines()
