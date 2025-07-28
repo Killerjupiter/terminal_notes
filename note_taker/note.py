@@ -118,9 +118,9 @@ def help():
 #detects if a keyword has a modifier or not and acts upon it also controls save for now   
 def key_modifier(key):
         if key in keyword_dict:
-            if keyword_dict[key][1]() == True:
+            try:
                 keyword_dict[key][1]()
-            elif keyword_dict[key][1]() == False:
+            except: #causes error when exiting the program haven't figured out a fix yet that doesn't cause another problem
                 keyword_dict[key][1](None)   
             key = ""
         for i in key_modifier_list:
