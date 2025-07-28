@@ -1,6 +1,6 @@
 #By Bealex my discord is bealex if you need me
 
-class keywords: #not really sure how to use it but assuming I can use it to just put the keyword_dict into the definitions
+class keywords: #not really sure how to use it but assuming I can use it for something
     pass
 
 #hopefully save on/off
@@ -19,11 +19,31 @@ def read():
         for i in range(len(lines)):
             print(lines[i])
 
+#modified read command that adds line numbers
 def read1():
     with open("note.txt", "r") as f:
         lines = f.readlines()
         for i in range(len(lines)):
             print(f"{i}. {lines[i]}")
+
+#find working on
+def find():
+    key = input("find word: ")
+    with open("note.txt", "r") as f:
+        lines = f.readlines()
+        for i in range(len(lines)):
+                if key in lines[i]:
+                    print(lines[i])
+
+#prints all lines with line numbers
+def find1():
+    key = input("find word: ")
+    with open("note.txt", "r") as f:
+        lines = f.readlines()
+        for i in range(len(lines)):
+                if key in lines[i]:
+                    print(f"{i}. {lines[i]}")
+
 
 #clears text file
 def clear():
@@ -91,7 +111,7 @@ def key_modifier(key):
             elif i not in key:
                 break    
 
-#so keys don't get appended into file when typing and to call functions 
+#so keywords don't get appended into file when typing and to call functions 
 keyword_dict = {
                 "/esc": ["escape key exits program", escape], 
                 "/read": ["read key shows all saved text, working modifier read1", read, read1], 
@@ -99,6 +119,7 @@ keyword_dict = {
                 "/overwrite": ["Replaces saved text at line indicated", over_write], 
                 "/help": ["shows information regarding keys", help,],
                 "/save": ["starts saving writing not yet implemented", save,],
+                "/find": ["prints all lines a word appears in", find, find1,],
                 "": ["used for programming end user need not to worry about", pass_on],
                 }
 
