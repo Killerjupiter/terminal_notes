@@ -82,14 +82,31 @@ def pass_on():
 
 #to change a line in the saved text file
 def over_write():
-    with open("note.txt", "r") as f:
-        lines = f.readlines()
-        key = int(input("type line number: "))
-    if key in range(len(lines)):
-        lines[key] = input("type new text: ") + "\n"
-        with open("note.txt", "w") as f:
-            for i in range(len(lines)):
-                f.write(lines[i])
+        with open("note.txt", "r") as f:
+            lines = f.readlines()
+            try:
+                key = int(input("type line number: "))
+            except:
+                key = float("-inf")
+        if key in range(len(lines)):
+            lines[key] = input("type new text: ") + "\n"
+            with open("note.txt", "w") as f:
+                for i in range(len(lines)):
+                    f.write(lines[i])
+
+        
+def over_write1():
+    while True:
+        with open("note.txt", "r") as f:
+            lines = f.readlines()
+            key = int(-1)
+            lines[key] = input(("type new text: ") + "\n")
+            with open("note.txt", "w") as f:
+                for i in range(len(lines)):
+                    f.write(lines[i])
+        if key not in range(len(lines)):
+            break
+
 
 #help menu and all of it's options
 def help():
@@ -146,7 +163,7 @@ keyword_dict = {
                 "/esc": ["escape key exits program /esc1 is for debug only causes save error", escape, escape],
                 "/read": ["read key shows all saved text, working modifier read1", read, read1], 
                 "/clr": ["clear key clears saved text", clear], 
-                "/overwrite": ["Replaces saved text at line indicated", over_write], 
+                "/overwrite": ["Replaces saved text at line indicated", over_write, over_write1], 
                 "/help": ["shows information regarding keys", help,],
                 "/save": ["currently nothing", save,],
                 "/find": ["prints all lines a word appears in", find, find1, find2,],
